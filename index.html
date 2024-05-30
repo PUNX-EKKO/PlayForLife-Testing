@@ -43,17 +43,6 @@
             -ms-interpolation-mode: nearest-neighbor;
         }
 
-        /* #loading-ui {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        } */
-
         #progress-bar {
             width: 300px;
             height: 50px;
@@ -84,7 +73,6 @@
         }
 
         .loader {
-            margin: 0 auto 15px;
             width: 54px;
             height: 54px;
             position: relative;
@@ -97,50 +85,50 @@
                 radial-gradient(circle 5px , #000 100%, transparent 0),
                 radial-gradient(circle 5px , #000 100%, transparent 0),
                 radial-gradient(circle 5px , #000 100%, transparent 0);
-            background-repeat: no-repeat;
-            animation: move 4s linear infinite, rotate 2s linear infinite;
+                background-repeat: no-repeat;
+            animation: move 4s linear infinite , rotate 2s linear infinite;
         }
 
         @keyframes rotate {
-            0%, 20% { transform: rotate(0deg); }
-            30%, 40% { transform: rotate(90deg); }
-            50%, 60% { transform: rotate(180deg); }
-            70%, 80% { transform: rotate(270deg); }
-            90%, 100% { transform: rotate(360deg); }
+            0% , 20%{ transform: rotate(0deg)}
+            30% , 40% { transform: rotate(90deg)}
+            50% , 60% { transform: rotate(180deg)}
+            70% , 80% { transform: rotate(270deg)}
+            90%,  100% { transform: rotate(360deg)}
         }
-
         @keyframes move {
-            0%, 9% {
+            0% ,  9%{
                 background-position:
-                    -12px -15px, -12px 0px, -12px 15px,
-                    12px -15px, 12px 0px, 12px 15px;
+                -12px -15px,  -12px 0px, -12px 15px,
+                12px -15px,  12px 0px,  12px 15px;
             }
-            10%, 25% {
+            10% , 25%{
                 background-position:
-                    0px -15px, -12px 0px, -12px 15px,
-                    34px -15px, 12px 0px, 12px 15px;
+                0px -15px,  -12px 0px, -12px 15px,
+                34px -15px,  12px 0px,  12px 15px;
             }
-            30%, 45% {
+            30% , 45%{
                 background-position:
-                    0px -34px, -12px -10px, -12px 12px,
-                    34px -15px, 12px -10px, 12px 12px;
+                0px -34px, -12px -10px, -12px 12px,
+                34px -15px, 12px -10px, 12px 12px;
             }
-            50%, 65% {
+            50% , 65% {
                 background-position:
-                    0px -34px, -12px -34px, -12px 12px,
-                    34px -12px, 0px -10px, 12px 12px;
+                0px -34px, -12px -34px, -12px 12px,
+                34px -12px, 0px -10px, 12px 12px;
             }
-            70%, 85% {
+            70% , 85% {
                 background-position:
-                    0px -34px, -12px -34px, 0px 12px,
-                    34px -12px, 0px -10px, 34px 12px;
+                0px -34px, -12px -34px, 0px 12px,
+                34px -12px, 0px -10px, 34px 12px;
             }
-            90%, 100% {
+            90% , 100% {
                 background-position:
-                    0px -34px, -12px -34px, 0px 0px,
-                    34px -12px, 0px 0px, 34px 12px;
+                0px -34px, -12px -34px, 0px 0px,
+                34px -12px, 0px 0px, 34px 12px;
             }
         }
+        
 
         @keyframes dots {
             0%, 20% {
@@ -188,10 +176,9 @@
 <body>
     <div id="gameContainer">
         <div id="loading-ui">
-            <!-- <div id="progress-bar">
-                <div id="progress-bar-fill"></div>
-            </div> -->
+        
             <div class="loader"></div>
+            <br>
             <br>
             <p class="loading"><strong>Loading</strong><span class="dots"></span></p>
        </div>
@@ -203,26 +190,25 @@
             var loadingUI = document.getElementById("loading-ui");
 
             var config = {
-                dataUrl: "Build/492a2de341e2be2dd19661eea84f02c1.data.unityweb",
-                frameworkUrl: "Build/3f61c7913c42c5da8b72491d89e2ed83.js.unityweb",
-                codeUrl: "Build/26da1dd143916f778d80c5a20b60058c.wasm.unityweb",
+                dataUrl: "Build/22aba47514b248ad0862e0383541b57b.data.unityweb",
+                frameworkUrl: "Build/94432bbe4dc2a3dd6d64b9b83f879fab.js.unityweb",
+                codeUrl: "Build/34ba076a8f87c088ae5f78cf48dd85fa.wasm.unityweb",
                 streamingAssetsUrl: "StreamingAssets",
                 companyName: "PUNX",
                 productName: "Play For Life",
                 productVersion: "0.1.0",
             };
-            var scaleToFit;
-            try {
-                scaleToFit = !!JSON.parse("false");
-            } catch (e) {
-                scaleToFit = true;
-            }
+            var scaleToFit = true;
+            // try {
+            //     scaleToFit = !!JSON.parse("false");
+            // } catch (e) {
+            //     scaleToFit = true;
+            // }
 
             function progressHandler(progress) {
-                // progressBarFill.style.width = (progress * 100) + '%';
-                // if (progress >= 1) {
-                //     loadingUI.style.display = 'none';
-                // }
+                if (progress >= 1) {
+                    loadingUI.style.display = 'none';
+                }
             }
 
             function onResize() {
@@ -249,6 +235,8 @@
                 container.style.height = canvas.style.height = h + "px";
                 container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
                 container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+
+                console.log('RESIZE');
             }
 
             createUnityInstance(canvas, config, progressHandler).then(function (instance) {
