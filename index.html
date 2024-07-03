@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Play For Life</title>
+    <title>Play For Life Multiplayer</title>
     <style>
         html,
         body {
@@ -183,19 +183,19 @@
             <p class="loading"><strong>Loading</strong><span class="dots"></span></p>
        </div>
         <canvas id="unity-canvas" data-pixel-art=""></canvas>
-        <script src="Build/PlayForLife-Testing.loader.js"></script>
+        <script src="Build/playforlife-multip-employee.loader.js"></script>
         <script>
             var canvas = document.querySelector("#unity-canvas");
             var progressBarFill = document.getElementById("progress-bar-fill");
             var loadingUI = document.getElementById("loading-ui");
 
             var config = {
-                dataUrl: "Build/9720828357fed80d6d4d3bf9a53499a8.data.unityweb",
-                frameworkUrl: "Build/7ff58f7ca3e91a050c3039bc523b4c29.js.unityweb",
-                codeUrl: "Build/bb9ddf4d2e7090a93582c0139e7a4590.wasm.unityweb",
+                dataUrl: "Build/9bc510236b67e5d1c098b2dc1d21220b.data.unityweb",
+                frameworkUrl: "Build/57be37db4775054a771aede476e416a1.js.unityweb",
+                codeUrl: "Build/94d45b16f57cb76d3e7bda607d1d961f.wasm.unityweb",
                 streamingAssetsUrl: "StreamingAssets",
                 companyName: "PUNX",
-                productName: "Play For Life",
+                productName: "Play For Life Multiplayer",
                 productVersion: "0.1.0",
             };
             var scaleToFit = true;
@@ -259,43 +259,6 @@
                 window.location.href = "pfl.html";
             }
         </script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-functions.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-remote-config.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app-check.js"></script>
-		 <script>
-		  // Your web app's Firebase configuration
-		  var firebaseConfig = {
-			  apiKey: "AIzaSyC6U3TIcl_JAizzFqc8KSMI-Yb8wDSvdlU",
-			  authDomain: "play-for-life-singleplayer.firebaseapp.com",
-			  projectId: "play-for-life-singleplayer",
-			  storageBucket: "play-for-life-singleplayer.appspot.com",
-			  messagingSenderId: "740866759057",
-			  appId: "1:740866759057:web:7e3ae1ce89a6d6eaa02230",
-			  measurementId: "G-9X9HE2DTW9"
-		  };
-
-		  // Initialize Firebase and features
-		  firebase.initializeApp(firebaseConfig);
-
-		  var database = firebase.database();
-		  var db = firebase.firestore();
-		  var storage = firebase.storage();
-		  var functions = firebase.functions();
-
-		  const analytics = firebase.analytics();
-		  const remoteConfig = firebase.remoteConfig();
-		  remoteConfig.settings.minimumFetchIntervalMillis = 0;
-		  const messaging = firebase.messaging();
-
-		  </script>
-		
     </div>
 </body>
 
