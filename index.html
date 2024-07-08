@@ -300,9 +300,9 @@
             var loadingUI = document.getElementById("loading-ui");
 
             var config = {
-                dataUrl: "Build/c402dd527d2d0afbd77360502c1d0b14.data.unityweb",
-                frameworkUrl: "Build/aecd162d9394e45a4a2ffed00ca43d1b.js.unityweb",
-                codeUrl: "Build/5a14a3e5f9977913369b6d50ef5cf2b2.wasm.unityweb",
+                dataUrl: "Build/a998729383203f0166f0097ead1ffb27.data.unityweb",
+                frameworkUrl: "Build/a8b66b43f6f354680b4c359129e405bb.js.unityweb",
+                codeUrl: "Build/0ebd52a831a21170bd5c7a3a5a760de4.wasm.unityweb",
 
                 streamingAssetsUrl: "StreamingAssets",
                 companyName: "PUNX",
@@ -432,7 +432,7 @@
 			}
 			function resumeBackgroundMusic() {
 				if (typeof unityInstance !== 'undefined') {
-					unityInstance.SendMessage('AudioManager', 'PlayMainBGM');
+					unityInstance.SendMessage('HTMLBridge', 'PlayMainBGM');
 				}
 			}
         </script>
