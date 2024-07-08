@@ -298,7 +298,7 @@
             var canvas = document.querySelector("#unity-canvas");
             var progressBarFill = document.getElementById("progress-bar-fill");
             var loadingUI = document.getElementById("loading-ui");
-
+		
             var config = {
                 dataUrl: "Build/a998729383203f0166f0097ead1ffb27.data.unityweb",
                 frameworkUrl: "Build/a8b66b43f6f354680b4c359129e405bb.js.unityweb",
@@ -315,13 +315,13 @@
             // } catch (e) {
             //     scaleToFit = true;
             // }
-
+			 var unityInstance = UnityLoader.instantiate("unityContainer", "Build/PlayForLife-Testing.json", {onProgress: UnityProgress});
             function progressHandler(progress) {
                 if (progress >= 1) {
                     loadingUI.style.display = 'none';
                 }
             }
-
+			
             function onResize() {
                 var container = canvas.parentElement;
                 var w;
