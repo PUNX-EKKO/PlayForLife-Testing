@@ -315,7 +315,7 @@
             // } catch (e) {
             //     scaleToFit = true;
             // }
-			 var unityInstance = UnityLoader.instantiate("unityContainer", "Build/PlayForLife-Testing.json", {onProgress: UnityProgress});
+			
             function progressHandler(progress) {
                 if (progress >= 1) {
                     loadingUI.style.display = 'none';
@@ -431,7 +431,7 @@
 				resumeBackgroundMusic();
 			}
 			function resumeBackgroundMusic() {
-				unityInstance.SendMessage('HTMLBridge', 'PlayMainBGM');
+				instance.SendMessage('HTMLBridge', 'PlayMainBGM');
 				
 			}
         </script>
