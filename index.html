@@ -295,6 +295,7 @@
         <script src="Build/PlayForLife-Testing.loader.js"></script>
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-9X9HE2DTW9"></script>
         <script>
+			var unityInstance = UnityLoader.instantiate("unityContainer", "Build/PlayForLife-Testing.loader.js", {onProgress: UnityProgress});
             var canvas = document.querySelector("#unity-canvas");
             var progressBarFill = document.getElementById("progress-bar-fill");
             var loadingUI = document.getElementById("loading-ui");
