@@ -431,9 +431,8 @@
 				resumeBackgroundMusic();
 			}
 			function resumeBackgroundMusic() {
-				if (typeof unityInstance !== 'undefined') {
-					unityInstance.SendMessage('HTMLBridge', 'PlayMainBGM');
-				}
+				unityInstance.SendMessage('HTMLBridge', 'PlayMainBGM');
+				
 			}
         </script>
     </div>
