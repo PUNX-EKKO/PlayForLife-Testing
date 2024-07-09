@@ -350,7 +350,9 @@
                 console.log('RESIZE');
             }
 
+            var unityInstance;
             createUnityInstance(canvas, config, progressHandler).then(function (instance) {
+                unityInstance = instance;
                 canvas = instance.Module.canvas;
                 onResize();
             });
@@ -431,8 +433,7 @@
 				resumeBackgroundMusic();
 			}
 			function resumeBackgroundMusic() {
-				instance.SendMessage('HTMLBridge', 'PlayMainBGM');
-				
+				unityInstance.SendMessage('HTMLBridge', 'PlayMainBGM');
 			}
         </script>
     </div>
