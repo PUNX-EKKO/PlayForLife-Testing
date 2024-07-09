@@ -298,11 +298,11 @@
             var canvas = document.querySelector("#unity-canvas");
             var progressBarFill = document.getElementById("progress-bar-fill");
             var loadingUI = document.getElementById("loading-ui");
-		
+
             var config = {
-                dataUrl: "Build/a998729383203f0166f0097ead1ffb27.data.unityweb",
-                frameworkUrl: "Build/a8b66b43f6f354680b4c359129e405bb.js.unityweb",
-                codeUrl: "Build/0ebd52a831a21170bd5c7a3a5a760de4.wasm.unityweb",
+                dataUrl: "Build/1ef88355878b52297ad2e481925ec6b6.data.unityweb",
+                frameworkUrl: "Build/1ff05bf432d90f4dc270f4d494bfdfb6.js.unityweb",
+                codeUrl: "Build/34ecca470a4dc0b386bb9595feb13728.wasm.unityweb",
 
                 streamingAssetsUrl: "StreamingAssets",
                 companyName: "PUNX",
@@ -315,13 +315,13 @@
             // } catch (e) {
             //     scaleToFit = true;
             // }
-			
+
             function progressHandler(progress) {
                 if (progress >= 1) {
                     loadingUI.style.display = 'none';
                 }
             }
-			
+
             function onResize() {
                 var container = canvas.parentElement;
                 var w;
@@ -349,13 +349,13 @@
 
                 console.log('RESIZE');
             }
-
             var unityInstance;
             createUnityInstance(canvas, config, progressHandler).then(function (instance) {
                 unityInstance = instance;
                 canvas = instance.Module.canvas;
                 onResize();
             });
+
 
             window.addEventListener('resize', onResize);
             onResize();
