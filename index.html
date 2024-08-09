@@ -353,38 +353,38 @@
 				measurementId: "G-ZKXQ349NX8"
 			};
 
-			 // Initialize Firebase
-			const app = initializeApp(firebaseConfig);
-			const analytics = getAnalytics(app);
-			const database = getDatabase(app);
+			// Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database = getDatabase(app);
 
-			// Create a lobby room
-			function createRoom(roomId) {
-				firebase.database().ref('lobbies/' + roomId).set({
-					status: 'created'
-				}).then(() => {
-					console.log('Room created');
-					SendMessage('FirebaseDB', 'OnRoomCreated', roomId);
-				});
-			}
+    // Create a lobby room
+    function createRoom(roomId) {
+        database.ref('lobbies/' + roomId).set({
+            status: 'created'
+        }).then(() => {
+            console.log('Room created');
+            SendMessage('FirebaseDB', 'OnRoomCreated', roomId);
+        });
+    }
 
-			// Join a lobby room
-			function joinRoom(roomId, playerId) {
-				firebase.database().ref('lobbies/' + roomId + '/players/' + playerId).set({
-					status: 'joined'
-				}).then(() => {
-					console.log('Room joined');
-					SendMessage('FirebaseDB', 'OnRoomJoined', roomId);
-				});
-			}
+    // Join a lobby room
+    function joinRoom(roomId, playerId) {
+        database.ref('lobbies/' + roomId + '/players/' + playerId).set({
+            status: 'joined'
+        }).then(() => {
+            console.log('Room joined');
+            SendMessage('FirebaseDB', 'OnRoomJoined', roomId);
+        });
+    }
 
-			// Leave a lobby room
-			function leaveRoom(roomId, playerId) {
-				firebase.database().ref('lobbies/' + roomId + '/players/' + playerId).remove().then(() => {
-					console.log('Room left');
-					SendMessage('FirebaseDB', 'OnRoomLeft', roomId);
-				});
-			}
+    // Leave a lobby room
+    function leaveRoom(roomId, playerId) {
+        database.ref('lobbies/' + roomId + '/players/' + playerId).remove().then(() => {
+            console.log('Room left');
+            SendMessage('FirebaseDB', 'OnRoomLeft', roomId);
+        });
+    }
 			
 			
 			
