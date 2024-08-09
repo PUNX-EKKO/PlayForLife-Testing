@@ -1,265 +1,685 @@
 <!DOCTYPE html>
+
 <html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <title>Play For Life</title>
+
     <style>
-        html,
-        body {
-            background: #003946 url(https://slfbrighttools.com/wca/pflpattern.jpg) repeat;
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
+      html,
+      body {
+        background: #003946 url(https://slfbrighttools.com/wca/pflpattern.jpg)
+          repeat;
+
+        height: 100%;
+
+        margin: 0;
+
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        background: #ffffff;
+
+        padding-bottom: 40px;
+
+        border-left: 10px solid #eaab00;
+
+        border-right: 10px solid #eaab00;
+      }
+
+      div#gameContainer {
+        background: transparent !important;
+
+        position: absolute;
+      }
+
+      div#gameContainer canvas {
+        position: absolute;
+      }
+
+      div#gameContainer canvas[data-pixel-art="true"] {
+        position: absolute;
+
+        image-rendering: optimizeSpeed;
+
+        image-rendering: -webkit-crisp-edges;
+
+        image-rendering: -moz-crisp-edges;
+
+        image-rendering: -o-crisp-edges;
+
+        image-rendering: crisp-edges;
+
+        image-rendering: -webkit-optimize-contrast;
+
+        image-rendering: optimize-contrast;
+
+        image-rendering: pixelated;
+
+        -ms-interpolation-mode: nearest-neighbor;
+      }
+
+      #progress-bar {
+        width: 300px;
+
+        height: 50px;
+
+        background-image: url("empty_bar.png"); /* Image for the empty bar */
+
+        background-size: 100% 100%;
+
+        position: relative;
+      }
+
+      #progress-bar-fill {
+        width: 0;
+
+        height: 100%;
+
+        background-image: url("full_bar.png"); /* Image for the full bar */
+
+        background-size: 100% 100%;
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        transition: width 0.5s;
+      }
+
+      #loading-ui {
+        position: absolute;
+
+        top: 50%;
+
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        padding: 20px 30px;
+
+        border-radius: 8px;
+
+        text-align: center;
+      }
+
+      .loader {
+        width: 54px;
+
+        height: 54px;
+
+        position: relative;
+
+        border-radius: 4px;
+
+        background-color: #fff;
+
+        background-image: radial-gradient(circle 5px, #000 100%, transparent 0),
+          radial-gradient(circle 5px, #000 100%, transparent 0),
+          radial-gradient(circle 5px, #000 100%, transparent 0),
+          radial-gradient(circle 5px, #000 100%, transparent 0),
+          radial-gradient(circle 5px, #000 100%, transparent 0),
+          radial-gradient(circle 5px, #000 100%, transparent 0);
+
+        background-repeat: no-repeat;
+
+        animation: move 4s linear infinite, rotate 2s linear infinite;
+      }
+
+      @keyframes rotate {
+        0%,
+        20% {
+          transform: rotate(0deg);
         }
 
-        .container {
-            background: #ffffff;
-            padding-bottom: 40px;
-            border-left: 10px solid #eaab00;
-            border-right: 10px solid #eaab00;
+        30%,
+        40% {
+          transform: rotate(90deg);
         }
 
-        div#gameContainer {
-            background: transparent !important;
-            position: absolute;
+        50%,
+        60% {
+          transform: rotate(180deg);
         }
 
-        div#gameContainer canvas {
-            position: absolute;
+        70%,
+        80% {
+          transform: rotate(270deg);
         }
 
-        div#gameContainer canvas[data-pixel-art="true"] {
-            position: absolute;
-            image-rendering: optimizeSpeed;
-            image-rendering: -webkit-crisp-edges;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -o-crisp-edges;
-            image-rendering: crisp-edges;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: optimize-contrast;
-            image-rendering: pixelated;
-            -ms-interpolation-mode: nearest-neighbor;
+        90%,
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes move {
+        0%,
+        9% {
+          background-position: -12px -15px, -12px 0px, -12px 15px, 12px -15px,
+            12px 0px, 12px 15px;
         }
 
-        #progress-bar {
-            width: 300px;
-            height: 50px;
-            background-image: url('empty_bar.png'); /* Image for the empty bar */
-            background-size: 100% 100%;
-            position: relative;
+        10%,
+        25% {
+          background-position: 0px -15px, -12px 0px, -12px 15px, 34px -15px,
+            12px 0px, 12px 15px;
         }
 
-        #progress-bar-fill {
-            width: 0;
-            height: 100%;
-            background-image: url('full_bar.png'); /* Image for the full bar */
-            background-size: 100% 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: width 0.5s;
+        30%,
+        45% {
+          background-position: 0px -34px, -12px -10px, -12px 12px, 34px -15px,
+            12px -10px, 12px 12px;
         }
 
-        #loading-ui {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px 30px;
-            border-radius: 8px;
-            text-align: center;
+        50%,
+        65% {
+          background-position: 0px -34px, -12px -34px, -12px 12px, 34px -12px,
+            0px -10px, 12px 12px;
         }
 
-        .loader {
-            width: 54px;
-            height: 54px;
-            position: relative;
-            border-radius: 4px;
-            background-color: #fff;
-            background-image:
-                radial-gradient(circle 5px , #000 100%, transparent 0),
-                radial-gradient(circle 5px , #000 100%, transparent 0),
-                radial-gradient(circle 5px , #000 100%, transparent 0),
-                radial-gradient(circle 5px , #000 100%, transparent 0),
-                radial-gradient(circle 5px , #000 100%, transparent 0),
-                radial-gradient(circle 5px , #000 100%, transparent 0);
-                background-repeat: no-repeat;
-            animation: move 4s linear infinite , rotate 2s linear infinite;
+        70%,
+        85% {
+          background-position: 0px -34px, -12px -34px, 0px 12px, 34px -12px,
+            0px -10px, 34px 12px;
         }
 
-        @keyframes rotate {
-            0% , 20%{ transform: rotate(0deg)}
-            30% , 40% { transform: rotate(90deg)}
-            50% , 60% { transform: rotate(180deg)}
-            70% , 80% { transform: rotate(270deg)}
-            90%,  100% { transform: rotate(360deg)}
+        90%,
+        100% {
+          background-position: 0px -34px, -12px -34px, 0px 0px, 34px -12px,
+            0px 0px, 34px 12px;
         }
-        @keyframes move {
-            0% ,  9%{
-                background-position:
-                -12px -15px,  -12px 0px, -12px 15px,
-                12px -15px,  12px 0px,  12px 15px;
-            }
-            10% , 25%{
-                background-position:
-                0px -15px,  -12px 0px, -12px 15px,
-                34px -15px,  12px 0px,  12px 15px;
-            }
-            30% , 45%{
-                background-position:
-                0px -34px, -12px -10px, -12px 12px,
-                34px -15px, 12px -10px, 12px 12px;
-            }
-            50% , 65% {
-                background-position:
-                0px -34px, -12px -34px, -12px 12px,
-                34px -12px, 0px -10px, 12px 12px;
-            }
-            70% , 85% {
-                background-position:
-                0px -34px, -12px -34px, 0px 12px,
-                34px -12px, 0px -10px, 34px 12px;
-            }
-            90% , 100% {
-                background-position:
-                0px -34px, -12px -34px, 0px 0px,
-                34px -12px, 0px 0px, 34px 12px;
-            }
-        }
-        
+      }
 
-        @keyframes dots {
-            0%, 20% {
-                color: rgba(0,0,0,0);
-                text-shadow:
-                .25em 0 0 rgba(0,0,0,0),
-                .5em 0 0 rgba(0,0,0,0);
-            }
-            40% {
-                color: #fbd759;
-                text-shadow:
-                .25em 0 0 rgba(0,0,0,0),
-                .5em 0 0 rgba(0,0,0,0);
-            }
-            60% {
-                text-shadow:
-                .25em 0 0 #fbd759,
-                .5em 0 0 rgba(0,0,0,0);
-            }
-            80%, 100% {
-                text-shadow:
-                .25em 0 0 #fbd759,
-                .5em 0 0 #fbd759;
-            }
+      @keyframes dots {
+        0%,
+        20% {
+          color: rgba(0, 0, 0, 0);
+
+          text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
         }
 
-        .loading {
-            color: #fbd759;
-            font-weight: bold;
-            margin-top: 3px;
+        40% {
+          color: #fbd759;
+
+          text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
         }
 
-        .dots {
-            margin-left: 3px
+        60% {
+          text-shadow: 0.25em 0 0 #fbd759, 0.5em 0 0 rgba(0, 0, 0, 0);
         }
 
-        .dots::after {
-            content: '...';
-            animation: dots 1s steps(1,end) infinite;
+        80%,
+        100% {
+          text-shadow: 0.25em 0 0 #fbd759, 0.5em 0 0 #fbd759;
         }
-            
+      }
+
+      .loading {
+        color: #fbd759;
+
+        font-weight: bold;
+
+        margin-top: 3px;
+      }
+
+      .dots {
+        margin-left: 3px;
+      }
+
+      .dots::after {
+        content: "...";
+
+        animation: dots 1s steps(1, end) infinite;
+      }
+
+      #videoPlayer {
+        display: none;
+
+        position: fixed;
+
+        top: 50%;
+
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 1000;
+
+        width: 80%;
+
+        height: 80%;
+
+        background-color: #000;
+
+        padding: 20px;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      #overlay {
+        display: none;
+
+        position: fixed;
+
+        top: 0;
+
+        left: 0;
+
+        width: 100%;
+
+        height: 100%;
+
+        background: rgba(0, 0, 0, 0.5);
+
+        z-index: 999;
+      }
+
+      video {
+        width: 100%;
+
+        height: 100%;
+      }
+
+      button {
+        position: absolute;
+
+        top: 10px;
+
+        right: 10px;
+
+        z-index: 1001;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="gameContainer">
-        <div id="loading-ui">
-        
-            <div class="loader"></div>
-            <br>
-            <br>
-            <p class="loading"><strong>Loading</strong><span class="dots"></span></p>
-       </div>
-        <canvas id="unity-canvas" data-pixel-art=""></canvas>
-        <script src="Build/playforlife-multip-employee.loader.js"></script>
-        <script>
-            var canvas = document.querySelector("#unity-canvas");
-            var progressBarFill = document.getElementById("progress-bar-fill");
-            var loadingUI = document.getElementById("loading-ui");
+      <div id="loading-ui">
+        <div class="loader"></div>
 
-            var config = {
-                dataUrl: "Build/7ba6efcb54de29aaa9ef76d033149538.data.unityweb",
-                frameworkUrl: "Build/07017c02e27384ca4cb49c7eec424199.js.unityweb",
-                codeUrl: "Build/09e6c6ed61c27ff2826271d24d85f37e.wasm.unityweb",
-                streamingAssetsUrl: "StreamingAssets",
-                companyName: "PUNX",
-                productName: "Play For Life",
-                productVersion: "0.1.0",
-            };
-            var scaleToFit = true;
-            // try {
-            //     scaleToFit = !!JSON.parse("false");
-            // } catch (e) {
-            //     scaleToFit = true;
-            // }
+        <br />
 
-            function progressHandler(progress) {
-                if (progress >= 1) {
-                    loadingUI.style.display = 'none';
-                }
-            }
+        <br />
 
-            function onResize() {
-                var container = canvas.parentElement;
-                var w;
-                var h;
+        <p class="loading">
+          <strong>Loading</strong><span class="dots"></span>
+        </p>
+      </div>
 
-                if (scaleToFit) {
-                    w = window.innerWidth;
-                    h = window.innerHeight;
+      <div id="overlay"></div>
 
-                    var r = 600 / 960;
+      <div id="videoPlayer">
+        <button onclick="closeVideo()">Close</button>
 
-                    if (w * r > window.innerHeight) {
-                        w = Math.min(w, Math.ceil(h / r));
+        <video id="tutorialVideo" controls>
+          <source src="StreamingAssets/tutorial-video.mp4" type="video/mp4" />
+
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <canvas
+        id="unity-canvas"
+        data-pixel-art=""
+      ></canvas>
+
+      <script src="Build/FirebaseTest.loader.js"></script>
+
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-9X9HE2DTW9"
+      ></script>
+	  
+	   <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-analytics.js"></script>
+		<script>
+			// Your web app's Firebase configuration
+			const firebaseConfig = {
+				apiKey: "AIzaSyC4pwr3RBpplcMI3XpkgkOB2QLYfJhwvF0",
+				authDomain: "play-for-life-employee.firebaseapp.com",
+				databaseURL: "https://play-for-life-employee-default-rtdb.firebaseio.com",
+				projectId: "play-for-life-employee",
+				storageBucket: "play-for-life-employee.appspot.com",
+				messagingSenderId: "697105012108",
+				appId: "1:697105012108:web:2952cd98561547cf10b2a9",
+				measurementId: "G-ZKXQ349NX8"
+			};
+
+			// Initialize Firebase
+			const app = initializeApp(firebaseConfig);
+			const analytics = getAnalytics(app);
+			 var database = firebase.database();
+
+			// Create a lobby room
+			function createRoom(roomId) {
+				firebase.database().ref('lobbies/' + roomId).set({
+					status: 'created'
+				}).then(() => {
+					console.log('Room created');
+					SendMessage('FirebaseDB', 'OnRoomCreated', roomId);
+				});
+			}
+
+			// Join a lobby room
+			function joinRoom(roomId, playerId) {
+				firebase.database().ref('lobbies/' + roomId + '/players/' + playerId).set({
+					status: 'joined'
+				}).then(() => {
+					console.log('Room joined');
+					SendMessage('FirebaseDB', 'OnRoomJoined', roomId);
+				});
+			}
+
+			// Leave a lobby room
+			function leaveRoom(roomId, playerId) {
+				firebase.database().ref('lobbies/' + roomId + '/players/' + playerId).remove().then(() => {
+					console.log('Room left');
+					SendMessage('FirebaseDB', 'OnRoomLeft', roomId);
+				});
+			}
+			
+			
+			
+		</script>
+
+      <script>
+
+                    var canvas = document.querySelector("#unity-canvas");
+
+                    var progressBarFill = document.getElementById("progress-bar-fill");
+
+                    var loadingUI = document.getElementById("loading-ui");
+
+
+
+                    var config = {
+
+                        dataUrl: "Build/3251cdbb3020d909ae1492b8af256f45.data.unityweb",
+
+                        frameworkUrl: "Build/ab645f8e3ea508a6b35a7e19242f2b84.js.unityweb",
+
+                        codeUrl: "Build/a3c7d02c326c69b1e62b0288c90bcea4.wasm.unityweb",
+
+
+
+
+
+                        streamingAssetsUrl: "StreamingAssets",
+
+                        companyName: "PUNX",
+
+                        productName: "Play For Life",
+
+                        productVersion: "0.1.0",
+
+                    };
+
+                    var scaleToFit = true;
+
+                    // try {
+
+                    //     scaleToFit = !!JSON.parse("false");
+
+                    // } catch (e) {
+
+                    //     scaleToFit = true;
+
+                    // }
+
+
+
+                    function progressHandler(progress) {
+
+                        if (progress >= 1) {
+
+                            loadingUI.style.display = 'none';
+
+                        }
+
                     }
-                    h = Math.floor(w * r);
-                } else {
-                    w = 960;
-                    h = 600;
-                }
 
-                container.style.width = canvas.style.width = w + "px";
-                container.style.height = canvas.style.height = h + "px";
-                container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
-                container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
 
-                console.log('RESIZE');
-            }
 
-            createUnityInstance(canvas, config, progressHandler).then(function (instance) {
-                canvas = instance.Module.canvas;
-                onResize();
-            });
+                    function onResize() {
 
-            window.addEventListener('resize', onResize);
-            onResize();
+                        var container = canvas.parentElement;
 
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                // Mobile device style: fill the whole browser client area with the game canvas:
-                const meta = document.createElement('meta');
-                meta.name = 'viewport';
-                meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-                document.getElementsByTagName('head')[0].appendChild(meta);
-            }
+                        var w;
 
-            function openLeadForm() {
-                window.location.href = "pfl.html";
-            }
-        </script>
+                        var h;
+
+
+
+                        if (scaleToFit) {
+
+                            w = window.innerWidth;
+
+                            h = window.innerHeight;
+
+
+
+                            var r = 600 / 960;
+
+
+
+                            if (w * r > window.innerHeight) {
+
+                                w = Math.min(w, Math.ceil(h / r));
+
+                            }
+
+                            h = Math.floor(w * r);
+
+                        } else {
+
+                            w = 960;
+
+                            h = 600;
+
+                        }
+
+
+
+                        container.style.width = canvas.style.width = w + "px";
+
+                        container.style.height = canvas.style.height = h + "px";
+
+                        container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+
+                        container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+
+
+
+                        console.log('RESIZE');
+
+                    }
+
+                    var unityInstance;
+
+                    createUnityInstance(canvas, config, progressHandler).then(function (instance) {
+
+                        unityInstance = instance;
+
+                        canvas = instance.Module.canvas;
+
+                        onResize();
+
+                    });
+
+
+
+
+
+                    window.addEventListener('resize', onResize);
+
+                    onResize();
+
+
+
+                    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+
+                        // Mobile device style: fill the whole browser client area with the game canvas:
+
+                        const meta = document.createElement('meta');
+
+                        meta.name = 'viewport';
+
+                        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+
+                        document.getElementsByTagName('head')[0].appendChild(meta);
+
+                    }
+
+
+
+                    function openLeadForm() {
+
+                        window.location.href = "https://www.pages03.net/sunlifeofcanada-philippines/PlayforLife/pfl";
+
+        				gtag('event', 'open_lead_form', {
+
+        				  'event_category': 'Button',
+
+        				  'event_label': 'Lead Form Button',
+
+        				  'value': 1
+
+        				});
+
+                    }
+
+
+
+        			function playerWin() {
+
+        				gtag('event', 'player_win', {
+
+        				  'event_category': 'Result',
+
+        				  'event_label': 'Player Win',
+
+        				  'value': 1
+
+        				});
+
+                    }
+
+        			function playerLose() {
+
+        				gtag('event', 'player_lose', {
+
+        				  'event_category': 'Result',
+
+        				  'event_label': 'Player Lose',
+
+        				  'value': 1
+
+        				});
+
+                    }
+
+        			function doubleCredit() {
+
+        				gtag('event', 'double_credit', {
+
+        				  'event_category': 'Credit',
+
+        				  'event_label': 'Double Credit',
+
+        				  'value': 1
+
+        				});
+
+                    }
+
+        			function buyFitAndWell() {
+
+        				gtag('event', 'fit_and_well', {
+
+        				  'event_category': 'StarterPack',
+
+        				  'event_label': 'Bought Fit And Well',
+
+        				  'value': 1
+
+        				});
+
+                    }
+
+        			function buyEmergency() {
+
+        				gtag('event', 'emergency', {
+
+        				  'event_category': 'StarterPack',
+
+        				  'event_label': 'Bought Emergency',
+
+        				  'value': 1
+
+        				});
+
+                   }
+
+
+
+
+
+        			function showVideo() {
+
+        				document.getElementById('videoPlayer').style.display = 'block';
+
+        				document.getElementById('overlay').style.display = 'block';
+
+        				document.getElementById('tutorialVideo').play();
+
+        			}
+
+
+
+        			function closeVideo() {
+
+        				var video = document.getElementById('tutorialVideo');
+
+        				video.pause();
+
+        				video.currentTime = 0;
+
+        				document.getElementById('videoPlayer').style.display = 'none';
+
+        				document.getElementById('overlay').style.display = 'none';
+
+        				resumeBackgroundMusic();
+
+        			}
+
+        			function resumeBackgroundMusic() {
+
+        				unityInstance.SendMessage('HTMLBridge', 'PlayMainBGM');
+
+        			}
+
+
+                  
+      </script>
+	 <script>
+		window.addEventListener('unload', function (event) {
+			// Disconnect the socket
+			socket.disconnect();
+
+			// Send a message to Unity to handle the leave lobby logic
+			unityInstance.SendMessage('[Multiplayer Controller]', 'LeaveLobby');
+
+			// Optionally, add a small delay to give the disconnection time to complete
+			setTimeout(function() {}, 100); 
+		});
+		</script>
     </div>
-</body>
-
+  </body>
 </html>
