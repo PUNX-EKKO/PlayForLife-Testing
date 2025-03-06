@@ -1,0 +1,7 @@
+<IfModule mod_headers.c>
+        
+        Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://connect.facebook.net https://www.googletagmanager.com https://analytics.tiktok.com https://p.teads.tv https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cm.teads.tv https://t.teads.tv/track https://slfbrighttools.com https://www.facebook.com https://www.google.com https://www.google.com.ph https://ad.doubleclick.net; font-src 'self'; connect-src *; frame-src 'self' https://fledge.teads.tv https://td.doubleclick.net; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; script-src-elem 'self' blob: 'unsafe-inline' 'unsafe-eval' https://connect.facebook.net https://www.googletagmanager.com https://analytics.tiktok.com https://p.teads.tv https://googleads.g.doubleclick.net; media-src 'self' blob:;"
+
+        Header set Access-Control-Allow-Origin "*"
+
+</IfModule>

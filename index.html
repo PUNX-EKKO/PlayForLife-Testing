@@ -297,6 +297,16 @@
         z-index: 1001;
       }
     </style>
+	
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y7MNSXEJZ3"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-Y7MNSXEJZ3');
+	</script>
   </head>
 
   <body>
@@ -330,65 +340,9 @@
         data-pixel-art=""
       ></canvas>
 
-      <script src="Build/PlayForLife-Testing.loader.js"></script>
+      <script src="Build/playforlife-multip-ofw.loader.js"></script>
 
-      <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-9X9HE2DTW9"
-      ></script>
-	  
-		<script>
-		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
-		import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-analytics.js";
-		import { getDatabase } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js";
-			// Your web app's Firebase configuration
-			const firebaseConfig = {
-				apiKey: "AIzaSyC4pwr3RBpplcMI3XpkgkOB2QLYfJhwvF0",
-				authDomain: "play-for-life-employee.firebaseapp.com",
-				databaseURL: "https://play-for-life-employee-default-rtdb.firebaseio.com",
-				projectId: "play-for-life-employee",
-				storageBucket: "play-for-life-employee.appspot.com",
-				messagingSenderId: "697105012108",
-				appId: "1:697105012108:web:2952cd98561547cf10b2a9",
-				measurementId: "G-ZKXQ349NX8"
-			};
-
-			// Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const database = getDatabase(app);
-
-    // Create a lobby room
-    function createRoom(roomId) {
-        database.ref('lobbies/' + roomId).set({
-            status: 'created'
-        }).then(() => {
-            console.log('Room created');
-            SendMessage('FirebaseDB', 'OnRoomCreated', roomId);
-        });
-    }
-
-    // Join a lobby room
-    function joinRoom(roomId, playerId) {
-        database.ref('lobbies/' + roomId + '/players/' + playerId).set({
-            status: 'joined'
-        }).then(() => {
-            console.log('Room joined');
-            SendMessage('FirebaseDB', 'OnRoomJoined', roomId);
-        });
-    }
-
-    // Leave a lobby room
-    function leaveRoom(roomId, playerId) {
-        database.ref('lobbies/' + roomId + '/players/' + playerId).remove().then(() => {
-            console.log('Room left');
-            SendMessage('FirebaseDB', 'OnRoomLeft', roomId);
-        });
-    }
-			
-			
-			
-		</script>
+   
 
       <script>
 
@@ -402,11 +356,11 @@
 
                     var config = {
 
-                        dataUrl: "Build/ca7d6a6b938d0a0997db4e7b2ea87cba.data.unityweb",
+                        dataUrl: "Build/24cc0cf74074d5299664c8b5d214c33a.data.unityweb",
 
-                        frameworkUrl: "Build/ab645f8e3ea508a6b35a7e19242f2b84.js.unityweb",
+                        frameworkUrl: "Build/c7f30201c4aab129ed98ba9ac9db4623.js.unityweb",
 
-                        codeUrl: "Build/a3c7d02c326c69b1e62b0288c90bcea4.wasm.unityweb",
+                        codeUrl: "Build/23846156a42e68daa215007d8c1b2683.wasm.unityweb",
 
 
 
@@ -537,24 +491,100 @@
                         document.getElementsByTagName('head')[0].appendChild(meta);
 
                     }
+					
 
-
-
-                    function openLeadForm() {
-
-                        window.location.href = "https://www.pages03.net/sunlifeofcanada-philippines/PlayforLife/pfl";
-
-        				gtag('event', 'open_lead_form', {
+                    function playNowBtn() {
+        				gtag('event', 'play_now_clicks', {
 
         				  'event_category': 'Button',
 
-        				  'event_label': 'Lead Form Button',
+        				  'event_label': 'Play Now',
 
         				  'value': 1
 
         				});
 
                     }
+						function tutorialBtn() {
+        				gtag('event', 'tutorial_clicks', {
+
+        				  'event_category': 'Button',
+
+        				  'event_label': 'Tutorial',
+
+        				  'value': 1
+
+        				});
+
+                    }
+					
+					 function privateCreateRoom() {
+        				gtag('event', 'private_create_room', {
+
+        				  'event_category': 'Button',
+
+        				  'event_label': 'Private Room',
+
+        				  'value': 1
+
+        				});
+
+                    }
+					
+				
+					 function publicCreateRoom() {
+        				gtag('event', 'public_create_room', {
+
+        				  'event_category': 'Button',
+
+        				  'event_label': 'Public Room',
+
+        				  'value': 1
+
+        				});
+
+                    }
+					
+					function privateStartGame() {
+        				gtag('event', 'private_start_game', {
+
+        				  'event_category': 'Button',
+
+        				  'event_label': 'Private Start',
+
+        				  'value': 1
+
+        				});
+
+                    }
+					
+					 function publicStartGame() {
+        				gtag('event', 'public_start_game', {
+
+        				  'event_category': 'Button',
+
+        				  'event_label': 'Public Start',
+
+        				  'value': 1
+
+        				});
+
+                    }
+					
+					function clientPromo() {
+        				gtag('event', 'client_promo_clicks', {
+
+        				  'event_category': 'Button',
+
+        				  'event_label': 'Client Promo',
+
+        				  'value': 1
+
+        				});
+
+                    }
+					
+					
 
 
 
@@ -586,19 +616,6 @@
 
                     }
 
-        			function doubleCredit() {
-
-        				gtag('event', 'double_credit', {
-
-        				  'event_category': 'Credit',
-
-        				  'event_label': 'Double Credit',
-
-        				  'value': 1
-
-        				});
-
-                    }
 
         			function buyFitAndWell() {
 
